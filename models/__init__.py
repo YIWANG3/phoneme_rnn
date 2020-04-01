@@ -2,11 +2,13 @@ from __future__ import absolute_import
 from .BaseLine import *
 from .Eval import *
 from .FourLstm import *
+from .A_Base import *
 
 __factory = {
     'baseline': BaseLine,
     'eval': Eval,
-    'fourlstm': FourLstm
+    'fourlstm': FourLstm,
+    'a_base': A_Base
 }
 
 
