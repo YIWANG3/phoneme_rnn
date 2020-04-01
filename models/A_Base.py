@@ -47,6 +47,7 @@ class A_Base(torch.nn.Module):
         utterance_batch = utterance_batch.permute(1, 2, 0)
         print("utterance_batch.T.shape", utterance_batch.shape)
         features_seq_batch = self.feature_extractor(utterance_batch)
+        print("features_seq_batch.shape", features_seq_batch.shape)
         features_seq_len_batch = self.calc_features_seq_len_batch(utterance_len_batch)
         hidden_states_batch = self.encoder(
             rnn_utils.pack_padded_sequence(features_seq_batch.permute(2, 0, 1), features_seq_len_batch,
