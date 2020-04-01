@@ -44,11 +44,8 @@ class A_Base(torch.nn.Module):
 
     def forward(self, utterance_batch, utterance_len_batch):
         print("utterance_batch.shape", utterance_batch.shape)
-        print("utterance_len_batch.shape", utterance_len_batch.shape)
         utterance_batch = utterance_batch.permute(1, 2, 0)
-        utterance_len_batch = utterance_len_batch.permute(1, 2, 0)
         print("utterance_batch.T.shape", utterance_batch.shape)
-        print("utterance_len_batch.T.shape", utterance_len_batch.shape)
         features_seq_batch = self.feature_extractor(utterance_batch)
         features_seq_len_batch = self.calc_features_seq_len_batch(utterance_len_batch)
         hidden_states_batch = self.encoder(
