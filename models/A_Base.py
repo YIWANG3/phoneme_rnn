@@ -49,7 +49,8 @@ class A_Base(torch.nn.Module):
         features_seq_batch = self.feature_extractor(utterance_batch)
         features_seq_len_batch = self.calc_features_seq_len_batch(utterance_len_batch)
         hidden_states_batch = self.encoder(
-            rnn_utils.pack_padded_sequence(features_seq_batch.permute(2, 0, 1), features_seq_len_batch)
+            rnn_utils.pack_padded_sequence(features_seq_batch.permute(2, 0, 1), features_seq_len_batch,
+                                           enforce_sorted=False)
         )
 
         if isinstance(hidden_states_batch, rnn_utils.PackedSequence):
