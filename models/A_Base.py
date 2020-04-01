@@ -43,6 +43,8 @@ class A_Base(torch.nn.Module):
         return ((utterance_len_batch - 3) // 2) + 1
 
     def forward(self, utterance_batch, utterance_len_batch):
+        print("utterance_batch.shape", utterance_batch.shape)
+        print("utterance_len_batch.shape", utterance_len_batch.shape)
         features_seq_batch = self.feature_extractor(utterance_batch)
         features_seq_len_batch = self.calc_features_seq_len_batch(utterance_len_batch)
         hidden_states_batch = self.encoder(
