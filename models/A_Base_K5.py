@@ -27,7 +27,7 @@ class A_Base_K5(torch.nn.Module):
         self.output = torch.nn.Linear(hidden_size * 2, 47)
 
     def calc_features_seq_len_batch(self, utterance_len_batch):
-        return ((utterance_len_batch - 5) // 2) + 1
+        return ((utterance_len_batch - 10) // 2) + 1
 
     def forward(self, utterance_batch, utterance_len_batch):
         utterance_batch = utterance_batch.permute(1, 2, 0)
