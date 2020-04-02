@@ -40,6 +40,7 @@ class A_Base(torch.nn.Module):
         packed_out = self.lstm1(packed_X)[0]
         packed_out = self.lstm2(packed_out)[0]
         packed_out = self.lstm3(packed_out)[0]
+
         out, out_lens = torch.nn.utils.rnn.pad_packed_sequence(packed_out)
         out = self.output(out).log_softmax(2)
         return out, out_lens

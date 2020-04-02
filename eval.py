@@ -177,5 +177,6 @@ if __name__ == "__main__":
     print("Use config: " + config_name)
     CONFIG = (importlib.import_module("config." + config_name)).config
 
-    model_path = os.path.join(CONFIG.MODEL_DIR, "save_model_full_19.pth")
+    model_path = os.path.join(CONFIG.MODEL_DIR,
+                              "a_base/a_base__EP-15__04-02_02-47-11__10.510849909584087__.model.state")
     eval(model_path)
