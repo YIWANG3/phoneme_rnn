@@ -21,8 +21,8 @@ class A_Base_Dropout(torch.nn.Module):
             nn.ELU(),
         )
 
-        self.lstm1 = torch.nn.LSTM(hidden_size >> 1, hidden_size, bidirectional=True, dropout=0.2)
-        self.lstm2 = torch.nn.LSTM(hidden_size * 2, hidden_size, bidirectional=True, dropout=0.2)
+        self.lstm1 = torch.nn.LSTM(hidden_size >> 1, hidden_size, bidirectional=True, num_layers=2, dropout=.2)
+        self.lstm2 = torch.nn.LSTM(hidden_size * 2, hidden_size, bidirectional=True, num_layers=2, dropout=0.2)
         self.lstm3 = torch.nn.LSTM(hidden_size * 2, hidden_size, bidirectional=True)
 
         self.output = torch.nn.Linear(hidden_size * 2, 47)
