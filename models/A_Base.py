@@ -11,10 +11,10 @@ class A_Base(torch.nn.Module):
         super(A_Base, self).__init__()
 
         self.feature_extractor = nn.Sequential(
-            nn.Conv1d(in_channels=40, out_channels=(hidden_size >> 2), kernel_size=3, padding=0, stride=2, bias=False),
+            nn.Conv1d(in_channels=40, out_channels=(hidden_size >> 2), kernel_size=5, padding=0, stride=2, bias=False),
             nn.BatchNorm1d(num_features=(hidden_size >> 2)),
             nn.ELU(),
-            nn.Conv1d(in_channels=(hidden_size >> 2), out_channels=(hidden_size >> 1), kernel_size=3, padding=1,
+            nn.Conv1d(in_channels=(hidden_size >> 2), out_channels=(hidden_size >> 1), kernel_size=5, padding=1,
                       stride=1, bias=False),
             nn.BatchNorm1d(num_features=(hidden_size >> 1)),
             nn.ELU(),
@@ -27,7 +27,7 @@ class A_Base(torch.nn.Module):
         self.output = torch.nn.Linear(hidden_size * 2, 47)
 
     def calc_features_seq_len_batch(self, utterance_len_batch):
-        return ((utterance_len_batch - 3) // 2) + 1
+        return ((utterance_len_batch - 10) // 2) + 1
 
     def forward(self, utterance_batch, utterance_len_batch):
         utterance_batch = utterance_batch.permute(1, 2, 0)

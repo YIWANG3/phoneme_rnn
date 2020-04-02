@@ -276,7 +276,7 @@ def run():
 
         if i % CONFIG.val_freq == 0:
             avg_distance = validate(model, dev_loader)
-            if avg_distance < 11 and optimizer != sgd:
+            if avg_distance < 9 and optimizer != sgd:
                 print("Switch to SGD")
                 optimizer = sgd
         else:
@@ -285,11 +285,11 @@ def run():
         print(CONFIG.model_name, ' Train Epoch: {} | Loss: {:.4f} | AVG_DIST: {:.4f} | Cost: {:.4f}s'.format(
             i, running_loss, avg_distance, (end - start)))
 
-        if i % CONFIG.save_freq == 0:
+        if i % CONFIG.save_freq == 0 and avg_distance < 15:
             start = time.time()
             model_name, path_name = gen_model_name(i, avg_distance)
             torch.save(model, path_name)
-            torch.save(model.state_dict(), path_name + ".state")
+            # torch.save(model.state_dict(), path_name + ".state")
             predict(model, test_loader, path_name + ".csv")
             end = time.time()
             print(CONFIG.model_name, ' Save Model and Predict Epoch: {} | Cost: {:.4f}s'.format(i, (end - start)))
