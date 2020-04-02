@@ -261,7 +261,7 @@ def run():
     model.cuda()
     criterion = nn.CTCLoss()
 
-    adam = init_optim("adam", model.parameters(), 5e-4, CONFIG.wd)
+    adam = init_optim("adam", model.parameters(), 1e-4, CONFIG.wd)
     sgd = init_optim("sgd", model.parameters(), 0.01, CONFIG.wd)
     optimizer = adam
 
