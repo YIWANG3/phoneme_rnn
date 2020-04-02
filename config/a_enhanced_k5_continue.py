@@ -20,4 +20,4 @@ config.MODEL_FOLDER_NAME = 'a_enhanced_k5'
 config.MODEL_SAVE_PATH = os.path.join(config.MODEL_DIR, config.MODEL_FOLDER_NAME)
 config.optim = "adam"
 config.continue_model_path = os.path.join(config.MODEL_DIR, config.MODEL_FOLDER_NAME,
-                                          "a_enhanced_k5__EP-8__04-02_20-50-16__9.040687160940326__.modelv")
+                                          "a_enhanced_k5__EP-8__04-02_20-50-16__9.040687160940326__.model")
