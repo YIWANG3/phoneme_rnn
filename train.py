@@ -263,8 +263,7 @@ def run():
 
     optimizer = init_optim(CONFIG.optim, model.parameters(), CONFIG.lr, CONFIG.wd)
 
-    if CONFIG.stepsize > 0:
-        scheduler = lr_scheduler.ExponentialLR(optimizer, 0.9)
+    scheduler = lr_scheduler.ExponentialLR(optimizer, 0.9)
 
     for i in range(1, num_epoch + 1):
         start = time.time()
