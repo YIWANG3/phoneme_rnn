@@ -261,8 +261,8 @@ def run():
     model.cuda()
     criterion = nn.CTCLoss()
 
-    adam = init_optim("adam", model.parameters(), 1e-4, CONFIG.wd)
-    sgd = init_optim("sgd", model.parameters(), 0.001, CONFIG.wd)
+    adam = init_optim("adam", model.parameters(), 5e-4, CONFIG.wd)
+    sgd = init_optim("sgd", model.parameters(), 0.01, CONFIG.wd)
     optimizer = adam
 
     if "schedule" in CONFIG and CONFIG.schedule:
@@ -276,7 +276,7 @@ def run():
 
         if i % CONFIG.val_freq == 0:
             avg_distance = validate(model, dev_loader)
-            if avg_distance < 11:
+            if avg_distance < 11 and optimizer != sgd:
                 print("Switch to SGD")
                 optimizer = sgd
         else:
