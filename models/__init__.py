@@ -9,6 +9,7 @@ from .FourGRU import *
 from .A_Base_K5 import *
 from .A_Enhanced_K5 import *
 from .Base_GRU import *
+from .OneCNN import *
 
 __factory = {
     'baseline': BaseLine,
@@ -20,7 +21,8 @@ __factory = {
     'fourgru': FourGRU,
     'a_base_k5': A_Base_K5,
     'a_enhanced_k5': A_Enhanced_K5,
-    'base_gru': Base_GRU
+    'base_gru': Base_GRU,
+    'one_cnn': OneCNN
 }
 
 

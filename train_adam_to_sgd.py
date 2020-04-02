@@ -276,7 +276,7 @@ def run():
 
         if i % CONFIG.val_freq == 0:
             avg_distance = validate(model, dev_loader)
-            if avg_distance < 9 and optimizer != sgd:
+            if avg_distance < 9.5 and optimizer != sgd:
                 print("Switch to SGD")
                 optimizer = sgd
         else:
