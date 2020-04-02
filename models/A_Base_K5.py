@@ -32,6 +32,9 @@ class A_Base_K5(torch.nn.Module):
     def forward(self, utterance_batch, utterance_len_batch):
         utterance_batch = utterance_batch.permute(1, 2, 0)
         features_seq_batch = self.feature_extractor(utterance_batch)
+
+        print("features_seq_batch.shape", features_seq_batch.shape)
+
         features_seq_len_batch = self.calc_features_seq_len_batch(utterance_len_batch)
         reshaped_features_seq_batch = features_seq_batch.permute(2, 0, 1)
         packed_X = torch.nn.utils.rnn.pack_padded_sequence(reshaped_features_seq_batch, features_seq_len_batch,
