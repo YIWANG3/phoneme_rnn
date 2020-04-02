@@ -3,10 +3,10 @@ from easydict import EasyDict as edict
 
 config = edict()
 
-config.name = "a_base"
+config.name = "a_base_sgd"
 config.batch_size = 64
 config.epoch = 100
-config.lr = 2e-4
+config.lr = 0.01
 config.wd = 5e-5
 config.hidden_size = 512
 config.model_name = "a_base"
@@ -16,6 +16,6 @@ config.print_freq = 10
 config.val_freq = 5
 config.save_freq = 1
 config.MODEL_DIR = 'saved_models'
-config.MODEL_FOLDER_NAME = 'a_base'
+config.MODEL_FOLDER_NAME = 'a_base_sgd'
 config.MODEL_SAVE_PATH = os.path.join(config.MODEL_DIR, config.MODEL_FOLDER_NAME)
 config.optim = "sgd"
