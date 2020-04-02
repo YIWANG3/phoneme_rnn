@@ -39,25 +39,24 @@ class A_Base(torch.nn.Module):
             out_features=47
         )
 
+        self.output = torch.nn.Linear(hidden_size, 47)
+
     def calc_features_seq_len_batch(self, utterance_len_batch):
         return ((utterance_len_batch - 3) // 2) + 1
 
     def forward(self, utterance_batch, utterance_len_batch):
-        print("utterance_batch.shape", utterance_batch.shape)
         utterance_batch = utterance_batch.permute(1, 2, 0)
-        print("utterance_batch.T.shape", utterance_batch.shape)
         features_seq_batch = self.feature_extractor(utterance_batch)
-        print("features_seq_batch.shape", features_seq_batch.shape)
         features_seq_len_batch = self.calc_features_seq_len_batch(utterance_len_batch)
         reshaped_features_seq_batch = features_seq_batch.permute(2, 0, 1)
-        print("reshaped_features_seq_batch.shape", reshaped_features_seq_batch.shape)
-        hidden_states_batch = self.encoder(
-            rnn_utils.pack_padded_sequence(reshaped_features_seq_batch, features_seq_len_batch,
-                                           enforce_sorted=False)
-        )
 
-        if isinstance(hidden_states_batch, rnn_utils.PackedSequence):
-            hidden_states_batch, _ = rnn_utils.pad_packed_sequence(
-                hidden_states_batch
-            )
-        return self.classifier(self.transformer(hidden_states_batch)), features_seq_len_batch.int()
+        print("reshaped_features_seq_batch.shape", reshaped_features_seq_batch.shape)
+        print("features_seq_len_batch.shape", features_seq_len_batch.shape)
+
+        packed_X = torch.nn.utils.rnn.pack_padded_sequence(reshaped_features_seq_batch, features_seq_len_batch,
+                                                           enforce_sorted=False)
+
+        packed_out = self.encoder(packed_X)
+        out, out_lens = torch.nn.utils.rnn.pad_packed_sequence(packed_out)
+        out = self.output(out).log_softmax(2)
+        return out, out_lens
