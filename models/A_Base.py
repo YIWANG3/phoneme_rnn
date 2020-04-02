@@ -20,11 +20,9 @@ class A_Base(torch.nn.Module):
             nn.ELU(),
         )
 
-        self.encoder = nn.Sequential(
-            torch.nn.LSTM(hidden_size >> 1, hidden_size, bidirectional=True),
-            torch.nn.LSTM(hidden_size * 2, hidden_size, bidirectional=True),
-            torch.nn.LSTM(hidden_size * 2, hidden_size, bidirectional=True)
-        )
+        self.lstm1 = torch.nn.LSTM(hidden_size >> 1, hidden_size, bidirectional=True)
+        self.lstm2 = torch.nn.LSTM(hidden_size * 2, hidden_size, bidirectional=True)
+        self.lstm3 = torch.nn.LSTM(hidden_size * 2, hidden_size, bidirectional=True)
 
         self.transformer = nn.Sequential(
             nn.Linear(hidden_size, hidden_size),
@@ -49,14 +47,12 @@ class A_Base(torch.nn.Module):
         features_seq_batch = self.feature_extractor(utterance_batch)
         features_seq_len_batch = self.calc_features_seq_len_batch(utterance_len_batch)
         reshaped_features_seq_batch = features_seq_batch.permute(2, 0, 1)
-
-        print("reshaped_features_seq_batch.shape", reshaped_features_seq_batch.shape)
-        print("features_seq_len_batch.shape", features_seq_len_batch.shape)
-
         packed_X = torch.nn.utils.rnn.pack_padded_sequence(reshaped_features_seq_batch, features_seq_len_batch,
                                                            enforce_sorted=False)
 
-        packed_out = self.encoder(packed_X)
+        packed_out = self.lstm1(packed_X)[0]
+        packed_out = self.lstm2(packed_out)[0]
+        packed_out = self.lstm3(packed_out)[0]
         out, out_lens = torch.nn.utils.rnn.pad_packed_sequence(packed_out)
         out = self.output(out).log_softmax(2)
         return out, out_lens
