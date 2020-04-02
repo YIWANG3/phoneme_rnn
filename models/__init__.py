@@ -5,6 +5,7 @@ from .FourLstm import *
 from .A_Base import *
 from .A_Enhanced import *
 from .A_Base_GRU import *
+from .FourGRU import *
 
 __factory = {
     'baseline': BaseLine,
@@ -12,7 +13,8 @@ __factory = {
     'fourlstm': FourLstm,
     'a_base': A_Base,
     'a_enhanced': A_Enhanced,
-    'a_base_gru': A_Base_GRU
+    'a_base_gru': A_Base_GRU,
+    'fourgru': FourGRU
 }
 
 

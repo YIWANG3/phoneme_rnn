@@ -260,6 +260,7 @@ def run():
 
     model = models.init_model(name=CONFIG.model_name, hidden_size=CONFIG.hidden_size)
     if "continue_model_path" in CONFIG:
+        print("Load ", CONFIG.continue_model_path)
         model = torch.load(CONFIG.continue_model_path)
 
     model.cuda()
