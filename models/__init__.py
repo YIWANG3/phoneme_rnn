@@ -11,6 +11,7 @@ from .A_Enhanced_K5 import *
 from .Base_GRU import *
 from .OneCNN import *
 from .A_Base_Dropout import *
+from .Best import *
 
 __factory = {
     'baseline': BaseLine,
@@ -24,7 +25,8 @@ __factory = {
     'a_enhanced_k5': A_Enhanced_K5,
     'base_gru': Base_GRU,
     'one_cnn': OneCNN,
-    'a_base_dropout': A_Base_Dropout
+    'a_base_dropout': A_Base_Dropout,
+    'best': Best
 }
 
 
