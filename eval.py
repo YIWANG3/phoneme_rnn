@@ -163,10 +163,7 @@ def validate(model, dev_loader):
 
 def eval(model_path):
     train_loader, dev_loader, test_loader = prepare_data()
-    checkpoint = torch.load(model_path)
-
-    model = models.init_model(name=CONFIG.model_name, hidden_size=CONFIG.hidden_size)
-    model.load_state_dict(checkpoint['model_state_dict'])
+    model = torch.load(model_path)
     model.cuda()
     model.eval()
     validate(model, dev_loader)
@@ -178,5 +175,5 @@ if __name__ == "__main__":
     CONFIG = (importlib.import_module("config." + config_name)).config
 
     model_path = os.path.join(CONFIG.MODEL_DIR,
-                              "a_base/a_base__EP-15__04-02_02-47-11__10.510849909584087__.model.state")
+                              "a_base/a_base__EP-15__04-02_02-47-11__10.510849909584087__.model")
     eval(model_path)
