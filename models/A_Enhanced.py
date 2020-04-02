@@ -25,7 +25,7 @@ class A_Enhanced(torch.nn.Module):
         self.lstm3 = torch.nn.LSTM(hidden_size * 2, hidden_size, bidirectional=True)
 
         self.transformer = nn.Sequential(
-            nn.Linear(hidden_size, hidden_size),
+            nn.Linear(hidden_size * 2, hidden_size),
             nn.SELU(),
             nn.Dropout(0.2),
             nn.Linear(hidden_size, hidden_size),
