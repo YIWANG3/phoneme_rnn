@@ -18,3 +18,4 @@ config.save_freq = 1
 config.MODEL_DIR = 'saved_models'
 config.MODEL_FOLDER_NAME = 'eval'
 config.MODEL_SAVE_PATH = os.path.join(config.MODEL_DIR, config.MODEL_FOLDER_NAME)
+config.optim = "sgd"

@@ -3,12 +3,12 @@ import torch
 from torch import nn
 import torch.nn.utils.rnn as rnn_utils
 
-__all__ = ['A_Base']
+__all__ = ['A_Enhanced']
 
 
-class A_Base(torch.nn.Module):
+class A_Enhanced(torch.nn.Module):
     def __init__(self, hidden_size):
-        super(A_Base, self).__init__()
+        super(A_Enhanced, self).__init__()
 
         self.feature_extractor = nn.Sequential(
             nn.Conv1d(in_channels=40, out_channels=(hidden_size >> 2), kernel_size=3, padding=0, stride=2, bias=False),
@@ -53,6 +53,7 @@ class A_Base(torch.nn.Module):
         packed_out = self.lstm1(packed_X)[0]
         packed_out = self.lstm2(packed_out)[0]
         packed_out = self.lstm3(packed_out)[0]
+
         out, out_lens = torch.nn.utils.rnn.pad_packed_sequence(packed_out)
-        out = self.output(out).log_softmax(2)
-        return out, out_lens
+
+        return self.classifier(self.transformer(out)), out_lens.int()

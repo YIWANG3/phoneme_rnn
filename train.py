@@ -3,7 +3,7 @@ import os
 import numpy as np
 from torch.utils.data import Dataset, DataLoader
 from torch import nn
-
+from torch.optim import lr_scheduler
 from lib.parse_args import parse
 from lib import file_opt
 import models
@@ -13,6 +13,8 @@ import torch
 import pandas
 from ctcdecode import CTCBeamDecoder
 from data.phoneme_list import PHONEME_MAP
+from lib.optimizers import init_optim
+
 import Levenshtein
 
 CONFIG = None
@@ -258,10 +260,16 @@ def run():
     model = models.init_model(name=CONFIG.model_name, hidden_size=CONFIG.hidden_size)
     model.cuda()
     criterion = nn.CTCLoss()
-    optimizer = optim.Adam(model.parameters(), lr=CONFIG.lr, weight_decay=CONFIG.wd)
+
+    optimizer = init_optim(CONFIG.optim, model.parameters(), CONFIG.lr, CONFIG.wd)
+
+    if CONFIG.stepsize > 0:
+        scheduler = lr_scheduler.ExponentialLR(optimizer, 0.9)
+
     for i in range(1, num_epoch + 1):
         start = time.time()
         running_loss = train(i, model, train_loader, criterion, optimizer)
+        scheduler.step()
         if i % CONFIG.val_freq == 0:
             avg_distance = validate(model, dev_loader)
         else:
