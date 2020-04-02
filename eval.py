@@ -175,5 +175,5 @@ if __name__ == "__main__":
     CONFIG = (importlib.import_module("config." + config_name)).config
 
     model_path = os.path.join(CONFIG.MODEL_DIR,
-                              "a_base/a_base__EP-15__04-02_02-47-11__10.510849909584087__.model")
+                              "a_base_sgd/a_base_sgd__EP-4__04-01_20-21-27__999999__.model")
     eval(model_path)
