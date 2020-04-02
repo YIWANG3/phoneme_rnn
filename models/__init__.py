@@ -3,14 +3,14 @@ from .BaseLine import *
 from .Eval import *
 from .FourLstm import *
 from .A_Base import *
-from .A_Enhance import *
+from .A_Enhanced import *
 
 __factory = {
     'baseline': BaseLine,
     'eval': Eval,
     'fourlstm': FourLstm,
     'a_base': A_Base,
-    'a_enhanced': A_Enhance
+    'a_enhanced': A_Enhanced
 }
 
 
