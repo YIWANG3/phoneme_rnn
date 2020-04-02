@@ -54,7 +54,7 @@ class A_Base(torch.nn.Module):
         print("reshaped_features_seq_batch.shape", reshaped_features_seq_batch.shape)
 
         hidden_states_batch = self.encoder(
-            rnn_utils.pack_padded_sequence(reshaped_features_seq_batch, features_seq_len_batch,
+            rnn_utils.pack_padded_sequence(features_seq_len_batch, features_seq_len_batch,
                                            enforce_sorted=False)
         )
 
