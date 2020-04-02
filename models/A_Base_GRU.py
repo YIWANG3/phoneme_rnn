@@ -3,12 +3,12 @@ import torch
 from torch import nn
 import torch.nn.utils.rnn as rnn_utils
 
-__all__ = ['A_Base']
+__all__ = ['A_Base_GRU']
 
 
-class A_Base(torch.nn.Module):
+class A_Base_GRU(torch.nn.Module):
     def __init__(self, hidden_size):
-        super(A_Base, self).__init__()
+        super(A_Base_GRU, self).__init__()
 
         self.feature_extractor = nn.Sequential(
             nn.Conv1d(in_channels=40, out_channels=(hidden_size >> 2), kernel_size=5, padding=0, stride=2, bias=False),
