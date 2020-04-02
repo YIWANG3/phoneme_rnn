@@ -266,7 +266,7 @@ def run():
     model.cuda()
     criterion = nn.CTCLoss()
 
-    optimizer = init_optim(CONFIG.optim, model.parameters(), CONFIG.lr, CONFIG.wd)
+    optimizer = init_optim("sgd", model.parameters(), 0.01, CONFIG.wd)
 
     if "schedule" in CONFIG and CONFIG.schedule:
         scheduler = lr_scheduler.ExponentialLR(optimizer, 0.9)
@@ -289,7 +289,7 @@ def run():
             start = time.time()
             model_name, path_name = gen_model_name(i, avg_distance)
             torch.save(model, path_name)
-            torch.save(model.state_dict(), path_name + ".state")
+            # torch.save(model.state_dict(), path_name + ".state")
             predict(model, test_loader, path_name + ".csv")
             end = time.time()
             print(CONFIG.model_name, ' Save Model and Predict Epoch: {} | Cost: {:.4f}s'.format(i, (end - start)))
