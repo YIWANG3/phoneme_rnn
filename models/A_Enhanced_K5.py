@@ -54,4 +54,4 @@ class A_Enhanced_K5(torch.nn.Module):
 
         out, out_lens = torch.nn.utils.rnn.pad_packed_sequence(packed_out)
 
-        return self.classifier(self.transformer(out)), out_lens.int()
+        return self.classifier(self.transformer(out)).log_softmax(2), out_lens.int()
