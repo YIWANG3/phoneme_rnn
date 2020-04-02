@@ -40,7 +40,6 @@ class A_Base(torch.nn.Module):
         )
 
     def calc_features_seq_len_batch(self, utterance_len_batch):
-        print('here')
         return ((utterance_len_batch - 3) // 2) + 1
 
     def forward(self, utterance_batch, utterance_len_batch):
@@ -52,9 +51,8 @@ class A_Base(torch.nn.Module):
         features_seq_len_batch = self.calc_features_seq_len_batch(utterance_len_batch)
         reshaped_features_seq_batch = features_seq_batch.permute(2, 0, 1)
         print("reshaped_features_seq_batch.shape", reshaped_features_seq_batch.shape)
-
         hidden_states_batch = self.encoder(
-            rnn_utils.pack_padded_sequence(features_seq_len_batch, features_seq_len_batch,
+            rnn_utils.pack_padded_sequence(reshaped_features_seq_batch, features_seq_len_batch,
                                            enforce_sorted=False)
         )
 
