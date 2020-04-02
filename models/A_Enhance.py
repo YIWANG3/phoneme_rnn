@@ -24,6 +24,19 @@ class A_Base(torch.nn.Module):
         self.lstm2 = torch.nn.LSTM(hidden_size * 2, hidden_size, bidirectional=True)
         self.lstm3 = torch.nn.LSTM(hidden_size * 2, hidden_size, bidirectional=True)
 
+        self.transformer = nn.Sequential(
+            nn.Linear(hidden_size, hidden_size),
+            nn.SELU(),
+            nn.Dropout(0.2),
+            nn.Linear(hidden_size, hidden_size),
+            nn.SELU()
+        )
+
+        self.classifier = nn.Linear(
+            in_features=hidden_size * 2,
+            out_features=47
+        )
+
         self.output = torch.nn.Linear(hidden_size * 2, 47)
 
     def calc_features_seq_len_batch(self, utterance_len_batch):
