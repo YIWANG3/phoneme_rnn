@@ -221,7 +221,7 @@ def gen_model_name(epoch, precision):
     file_opt.create_folder(CONFIG.MODEL_SAVE_PATH)
     cur_time = time.strftime("%m-%d_%H-%M-%S", time.localtime())
     model_name = CONFIG.MODEL_FOLDER_NAME + "__EP-" + str(epoch) + "__" + cur_time + "__" + str(
-        precision) + "__" + ".model"
+        precision) + "__" + "_c.model"
     path_name = os.path.join(CONFIG.MODEL_SAVE_PATH, model_name)
     return model_name, path_name
 
@@ -257,7 +257,11 @@ def run():
     train_loader, dev_loader, test_loader = prepare_data()
     print("Data Loaded")
     num_epoch = CONFIG.epoch
+
     model = models.init_model(name=CONFIG.model_name, hidden_size=CONFIG.hidden_size)
+    if "continue_model_path" in CONFIG:
+        model = torch.load(CONFIG.continue_model_path)
+
     model.cuda()
     criterion = nn.CTCLoss()
 

@@ -263,12 +263,15 @@ def run():
 
     optimizer = init_optim(CONFIG.optim, model.parameters(), CONFIG.lr, CONFIG.wd)
 
-    scheduler = lr_scheduler.ExponentialLR(optimizer, 0.9)
+    if "schedule" in CONFIG and CONFIG.schedule:
+        scheduler = lr_scheduler.ExponentialLR(optimizer, 0.9)
 
     for i in range(1, num_epoch + 1):
         start = time.time()
         running_loss = train(i, model, train_loader, criterion, optimizer)
-        scheduler.step()
+        if "schedule" in CONFIG and CONFIG.schedule:
+            scheduler.step()
+
         if i % CONFIG.val_freq == 0:
             avg_distance = validate(model, dev_loader)
         else:
