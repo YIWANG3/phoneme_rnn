@@ -13,9 +13,6 @@ class BaseLine(torch.nn.Module):
         self.output = torch.nn.Linear(hidden_size * 2, 47)
 
     def forward(self, X, lengths):
-        print("X.shape", X.shape)
-        print("lengths.shape", lengths.shape)
-
         packed_X = torch.nn.utils.rnn.pack_padded_sequence(X, lengths, enforce_sorted=False)
         packed_out = self.lstm1(packed_X)[0]
         packed_out = self.lstm2(packed_out)[0]
