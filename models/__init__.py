@@ -7,6 +7,7 @@ from .A_Enhanced import *
 from .A_Base_GRU import *
 from .FourGRU import *
 from .A_Base_K5 import *
+from .A_Enhanced_K5 import *
 
 __factory = {
     'baseline': BaseLine,
@@ -16,7 +17,8 @@ __factory = {
     'a_enhanced': A_Enhanced,
     'a_base_gru': A_Base_GRU,
     'fourgru': FourGRU,
-    'a_base_k5': A_Base_K5
+    'a_base_k5': A_Base_K5,
+    'a_enhanced_k5': A_Enhanced_K5
 }
 
 
