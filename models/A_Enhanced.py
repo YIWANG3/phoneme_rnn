@@ -33,11 +33,9 @@ class A_Enhanced(torch.nn.Module):
         )
 
         self.classifier = nn.Linear(
-            in_features=hidden_size * 2,
+            in_features=hidden_size,
             out_features=47
         )
-
-        self.output = torch.nn.Linear(hidden_size * 2, 47)
 
     def calc_features_seq_len_batch(self, utterance_len_batch):
         return ((utterance_len_batch - 3) // 2) + 1
