@@ -272,7 +272,7 @@ def run():
     model.cuda()
     criterion = nn.CTCLoss()
 
-    optimizer = init_optim("sgd", model.parameters(), 0.01, CONFIG.wd)
+    optimizer = init_optim("sgd", model.parameters(), 0.005, CONFIG.wd)
 
     if "schedule" in CONFIG and CONFIG.schedule:
         scheduler = lr_scheduler.ExponentialLR(optimizer, 0.9)
