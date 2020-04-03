@@ -134,7 +134,7 @@ def convert_to_phoneme(batch):
 
 
 def validate(model, dev_loader):
-    decoder = CTCBeamDecoder(['$'] * 47, beam_width=100, log_probs_input=True)
+    decoder = CTCBeamDecoder(['$'] * 47, beam_width=100, log_probs_input=True, blank_id=0)
     with torch.no_grad():
         model.eval()
         model.cuda()
