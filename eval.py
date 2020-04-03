@@ -175,5 +175,5 @@ if __name__ == "__main__":
     CONFIG = (importlib.import_module("config." + config_name)).config
 
     model_path = os.path.join(CONFIG.MODEL_DIR,
-                              "lstm_3_hidden_1024/lstm_3_hidden_1024__EP-4__04-02_22-52-41__7.241410488245931___c.mode")
+                              "lstm_3_hidden_1024/lstm_3_hidden_1024__EP-4__04-02_22-52-41__7.241410488245931___c.model")
     eval(model_path)
