@@ -192,7 +192,7 @@ def validate(model, dev_loader):
     beam_width = 100
     if "beam_width" in CONFIG:
         beam_width = CONFIG.beam_width
-    decoder = CTCBeamDecoder(['$'] * 47, beam_width=beam_width, log_probs_input=True)
+    decoder = CTCBeamDecoder(['$'] * 47, beam_width=beam_width, log_probs_input=True, blank_id=46)
     with torch.no_grad():
         model.eval()
         model.cuda()
@@ -240,7 +240,7 @@ def predict(model, test_loader, result_path):
     beam_width = 100
     if "beam_width" in CONFIG:
         beam_width = CONFIG.beam_width
-    decoder = CTCBeamDecoder(['$'] * 47, beam_width=beam_width, log_probs_input=True)
+    decoder = CTCBeamDecoder(['$'] * 47, beam_width=beam_width, log_probs_input=True, blank_id=46)
     with torch.no_grad():
         model.eval()
         model.cuda()
