@@ -28,7 +28,8 @@ __factory = {
     'one_cnn': OneCNN,
     'a_base_dropout': A_Base_Dropout,
     'best': Best,
-    'baselstm': BaseLSTM
+    'baselstm': BaseLSTM,
+    'lstm_3_hidden_1024': BaseLine
 }
 
 
