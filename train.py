@@ -12,7 +12,7 @@ import time
 import torch
 import pandas
 from ctcdecode import CTCBeamDecoder
-from data.phoneme_list import PHONEME_MAP
+from data.phoneme_list_47 import PHONEME_MAP
 from lib.optimizers import init_optim
 
 import Levenshtein
@@ -51,10 +51,11 @@ class WSJ():
 
 
 def load_data(path, name):
-    return (
-        np.load(os.path.join(path, f'{name}.npy'), encoding='bytes', allow_pickle=True),
-        np.load(os.path.join(path, f'{name}_merged_labels.npy'), encoding='bytes', allow_pickle=True)
-    )
+    # leave label 0 to be the <blank>
+    features = np.load(os.path.join(path, f'{name}.npy'), encoding='bytes', allow_pickle=True)
+    labels = np.load(os.path.join(path, f'{name}_merged_labels.npy'), encoding='bytes', allow_pickle=True)
+    labels += 1
+    return features, labels
 
 
 class MyDataset(Dataset):
@@ -234,7 +235,7 @@ def export_to_csv(label, label_key, data, data_key, path):
 
 
 def predict(model, test_loader, result_path):
-    decoder = CTCBeamDecoder(['$'] * 47, beam_width=100, log_probs_input=True, blank_id=46)
+    decoder = CTCBeamDecoder(['$'] * 47, beam_width=100, log_probs_input=True, blank_id=0)
     with torch.no_grad():
         model.eval()
         model.cuda()
