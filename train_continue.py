@@ -189,7 +189,10 @@ def convert_to_phoneme(batch):
 
 
 def validate(model, dev_loader):
-    decoder = CTCBeamDecoder(['$'] * 47, beam_width=100, log_probs_input=True)
+    beam_width = 100
+    if "beam_width" in CONFIG:
+        beam_width = CONFIG.beam_width
+    decoder = CTCBeamDecoder(['$'] * 47, beam_width=beam_width, log_probs_input=True)
     with torch.no_grad():
         model.eval()
         model.cuda()
@@ -234,7 +237,10 @@ def export_to_csv(label, label_key, data, data_key, path):
 
 
 def predict(model, test_loader, result_path):
-    decoder = CTCBeamDecoder(['$'] * 47, beam_width=100, log_probs_input=True)
+    beam_width = 100
+    if "beam_width" in CONFIG:
+        beam_width = CONFIG.beam_width
+    decoder = CTCBeamDecoder(['$'] * 47, beam_width=beam_width, log_probs_input=True)
     with torch.no_grad():
         model.eval()
         model.cuda()
