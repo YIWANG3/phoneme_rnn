@@ -12,6 +12,7 @@ from .Base_GRU import *
 from .OneCNN import *
 from .A_Base_Dropout import *
 from .Best import *
+from .BaseLSTM import *
 
 __factory = {
     'baseline': BaseLine,
@@ -26,7 +27,8 @@ __factory = {
     'base_gru': Base_GRU,
     'one_cnn': OneCNN,
     'a_base_dropout': A_Base_Dropout,
-    'best': Best
+    'best': Best,
+    'baselstm': BaseLSTM
 }
 
 
