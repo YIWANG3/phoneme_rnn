@@ -13,6 +13,7 @@ from .OneCNN import *
 from .A_Base_Dropout import *
 from .Best import *
 from .BaseLSTM import *
+from .DeepLSTM import *
 
 __factory = {
     'baseline': BaseLine,
@@ -29,7 +30,8 @@ __factory = {
     'a_base_dropout': A_Base_Dropout,
     'best': Best,
     'baselstm': BaseLSTM,
-    'lstm_3_hidden_1024': BaseLine
+    'lstm_3_hidden_1024': BaseLine,
+    'deeplstm': DeepLSTM
 }
 
 
