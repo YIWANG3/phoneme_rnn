@@ -262,7 +262,7 @@ def run():
     model.cuda()
     criterion = nn.CTCLoss()
 
-    adam = init_optim("adam", model.parameters(), 1e-4, CONFIG.wd)
+    adam = init_optim("adam", model.parameters(), 5e-4, CONFIG.wd)
     sgd = init_optim("sgd", model.parameters(), 0.005, CONFIG.wd)
     optimizer = adam
 
@@ -277,7 +277,7 @@ def run():
 
         if i % CONFIG.val_freq == 0:
             avg_distance = validate(model, dev_loader)
-            if avg_distance < 9.5 and optimizer != sgd:
+            if avg_distance < 10 and optimizer != sgd:
                 print("Switch to SGD")
                 optimizer = sgd
         else:
@@ -286,7 +286,7 @@ def run():
         print(CONFIG.model_name, ' Train Epoch: {} | Loss: {:.4f} | AVG_DIST: {:.4f} | Cost: {:.4f}s'.format(
             i, running_loss, avg_distance, (end - start)))
 
-        if i % CONFIG.save_freq == 0 and avg_distance < 15:
+        if i % CONFIG.save_freq == 0 and avg_distance < 12:
             start = time.time()
             model_name, path_name = gen_model_name(i, avg_distance)
             torch.save(model, path_name)
