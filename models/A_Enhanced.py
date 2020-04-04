@@ -20,9 +20,7 @@ class A_Enhanced(torch.nn.Module):
             nn.ELU(),
         )
 
-        self.lstm1 = torch.nn.LSTM(hidden_size >> 1, hidden_size, bidirectional=True)
-        self.lstm2 = torch.nn.LSTM(hidden_size * 2, hidden_size, bidirectional=True)
-        self.lstm3 = torch.nn.LSTM(hidden_size * 2, hidden_size, bidirectional=True)
+        self.encoder = torch.nn.LSTM(40, hidden_size, bidirectional=True, num_layers=4, dropout=0.2)
 
         self.transformer = nn.Sequential(
             nn.Linear(hidden_size * 2, hidden_size),
@@ -48,9 +46,7 @@ class A_Enhanced(torch.nn.Module):
         packed_X = torch.nn.utils.rnn.pack_padded_sequence(reshaped_features_seq_batch, features_seq_len_batch,
                                                            enforce_sorted=False)
 
-        packed_out = self.lstm1(packed_X)[0]
-        packed_out = self.lstm2(packed_out)[0]
-        packed_out = self.lstm3(packed_out)[0]
+        packed_out = self.encoder(packed_X)[0]
 
         out, out_lens = torch.nn.utils.rnn.pad_packed_sequence(packed_out)
 
