@@ -73,15 +73,26 @@ def extract_cur_chars(row, index):
 
 def ensemble_stage_two(ensembled, raw_data):
     result = []
+    same_len_count = 0
     for i in range(len(ensembled)):
+        is_same_len = True
         cur_row = raw_data[i]
         cur_len = len(ensembled[i])
-        cur_str = ""
-        for l in range(cur_len):
-            chars = extract_cur_chars(cur_row, l)
-            count_most = Counter(chars).most_common(1)
-            cur_str += count_most[0][0]
-        result.append(cur_str)
+        for line in cur_row:
+            if len(line) != cur_len:
+                is_same_len = False
+                break
+        if is_same_len:
+            cur_str = ""
+            same_len_count += 1
+            for l in range(cur_len):
+                chars = extract_cur_chars(cur_row, l)
+                count_most = Counter(chars).most_common(1)
+                cur_str += count_most[0][0]
+            result.append(cur_str)
+        else:
+            result.append(ensembled[i])
+    print("same_len_count:", same_len_count)
     return result
 
 
@@ -101,7 +112,7 @@ def calculate_same_rate(ensembled, raw_data):
 
 res = ensemble(all_result)
 calculate_same_rate(res, all_result)
-# res_stage_2 = ensemble_stage_two(res, all_result)
+res_stage_2 = ensemble_stage_two(res, all_result)
 
 file_opt.export_to_csv(label, "id", res, "Predicted", os.path.join(ENSEMBLE_RESULT, output_file_name + ".csv"))
 # file_opt.export_to_csv(label, "id", res_stage_2, "Predicted", os.path.join(ENSEMBLE_RESULT, output_file_name + "_s2.csv"))
