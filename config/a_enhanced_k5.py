@@ -4,7 +4,7 @@ from easydict import EasyDict as edict
 config = edict()
 
 config.name = "a_enhanced_k5"
-config.batch_size = 64
+config.batch_size = 32
 config.epoch = 100
 config.lr = 2e-4
 config.wd = 5e-5
