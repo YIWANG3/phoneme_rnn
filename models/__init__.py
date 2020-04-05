@@ -14,6 +14,7 @@ from .A_Base_Dropout import *
 from .Best import *
 from .BaseLSTM import *
 from .DeepLSTM import *
+from .A_Enhanced_New import *
 
 __factory = {
     'baseline': BaseLine,
@@ -31,7 +32,8 @@ __factory = {
     'best': Best,
     'baselstm': BaseLSTM,
     'lstm_3_hidden_1024': BaseLine,
-    'deeplstm': DeepLSTM
+    'deeplstm': DeepLSTM,
+    'a_enhanced_new': A_Enhanced_New
 }
 
 
