@@ -20,7 +20,7 @@ class A_Enhanced_K5(torch.nn.Module):
             nn.ELU(),
         )
 
-        self.encoder = torch.nn.LSTM(hidden_size >> 1, hidden_size, bidirectional=True, num_layers=4, dropout=0.25)
+        self.encoder = torch.nn.LSTM(hidden_size >> 1, hidden_size, bidirectional=True, num_layers=5, dropout=0.25)
 
         self.transformer = nn.Sequential(
             nn.Linear(hidden_size * 2, hidden_size),
